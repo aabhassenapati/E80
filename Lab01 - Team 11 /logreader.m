@@ -47,7 +47,8 @@ fclose(fid);
 
 %% Process your data here
 % Statistics over the collected data and histogram with Mean, Std, etc
-data = accelZ
+accelXY=accelX-accelY
+data = accelXY
 confLev = 0.95;
 xbar = mean(data) % Arithmetic mean
 S = std(data) % Standard Deviation
@@ -56,30 +57,72 @@ ESE = S/sqrt(N) % Estimated Standard Error
 % tinv is for 1-tailed, for 2-tailed we need to halve the range
 StdT = tinv((1-0.5*(1-confLev)),N-1) % The Student t value
 lambda = StdT*ESE % 1/2 of the confidence interval �lambda
-figure(1)
-h = histfit(data); % Plot histogram and normal curve
+
+%Figure to Line plot the data from Accelerometer in Z axis:
+figure(2)
+zp = scatter(1:63,accelZ, "blue")
+%plot(accelZ,"o")
+meanz= mean(accelZ)
 hold on
-bob = get(h(2)); % Get the normal curve data
-mx = max(h(2).YData); % Get the max in the normal curve data
-line([xbar xbar], [0 mx*1.05], 'LineWidth',3) % Plot a line for the mean
-line([xbar-S xbar-S], [0 mx*0.65], 'LineWidth',3) % Plot a line for 1 S
-                                                  % below the mean
-line([xbar+S xbar+S], [0 mx*0.65], 'LineWidth',3) % Plot a line for
-                                                  % 1 S above the mean
-line([xbar-lambda xbar+lambda], [mx*1.07 mx*1.07]) % Plot the conf. int.
-line([xbar-lambda xbar-lambda], [mx*1.02 mx*1.12])
-line([xbar+lambda xbar+lambda], [mx*1.02 mx*1.12])
-title('Histogram and Fitted Normal Distribution of Data')
-xlabel('Data Range')
-ylabel('Count')
-txt2 = '$\leftarrow \bar{x} + S$';
-text(xbar+S,mx*0.65,txt2,'Interpreter','latex')
-txt3 = '$\bar{x} - S \rightarrow$';
-text(xbar-S-0.55*S,mx*0.65,txt3,'Interpreter','latex')
-txt4 = '  Confidence Interval';
-text(xbar+lambda,mx*1.07,txt4)
+box on
+zmean = yline(meanz,"red", "mean = " + meanz)
+legend(zmean, "Mean Z") 
+title("Acceleration in Z vs Sample No. #")
+%ylim([800 1400])
+xlabel ("Sample No. #")
+ylabel ("Acceleration in Z axis")
 hold off
 
-Figure to Line plot the data from Accelerometer:
-figure(2)
-np = plot(accelY)
+figure(3)
+yp = scatter(1:63,accelY, "blue")
+%plot(accelZ,"o")
+meany= mean(accelY)
+hold on
+box on
+ymean = yline(meany,"red", "mean = " + meany)
+legend(ymean, "Mean Y") 
+title("Acceleration in Y vs Sample No. #")
+%ylim([800 1400])
+xlabel ("Sample No. #")
+ylabel ("Acceleration in Y axis")
+hold off
+
+figure(4)
+xp = scatter(1:63,accelX, "blue")
+%plot(accelZ,"o")
+meanx= mean(accelX)
+hold on
+box on
+xmean = yline(meanx,"red", "mean = " + meanx)
+legend(xmean, "Mean X") 
+title("Acceleration in X vs Sample No. #")
+%ylim([800 1400])
+xlabel ("Sample No. #")
+ylabel ("Acceleration in X axis")
+hold off
+
+
+% figure(1) for histogram not needed
+% h = histfit(data); % Plot histogram and normal curve
+% hold on
+% bob = get(h(2)); % Get the normal curve data
+% mx = max(h(2).YData); % Get the max in the normal curve data
+% line([xbar xbar], [0 mx*1.05], 'LineWidth',3) % Plot a line for the mean
+% line([xbar-S xbar-S], [0 mx*0.65], 'LineWidth',3) % Plot a line for 1 S
+%                                                   % below the mean
+% line([xbar+S xbar+S], [0 mx*0.65], 'LineWidth',3) % Plot a line for
+%                                                   % 1 S above the mean
+% line([xbar-lambda xbar+lambda], [mx*1.07 mx*1.07]) % Plot the conf. int.
+% line([xbar-lambda xbar-lambda], [mx*1.02 mx*1.12])
+% line([xbar+lambda xbar+lambda], [mx*1.02 mx*1.12])
+% title('Histogram and Fitted Normal Distribution of Data')
+% xlabel('Data Range')
+% ylabel('Count')
+% txt2 = '$\leftarrow \bar{x} + S$';
+% text(xbar+S,mx*0.65,txt2,'Interpreter','latex')
+% txt3 = '$\bar{x} - S \rightarrow$';
+% text(xbar-S-0.55*S,mx*0.65,txt3,'Interpreter','latex')
+% txt4 = '  Confidence Interval';
+% text(xbar+lambda,mx*1.07,txt4)
+% hold off
+
