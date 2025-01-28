@@ -25,7 +25,7 @@ Previous Contributors:
 /* Global Variables */
 
 // period in ms of logger and printer
-#define LOOP_PERIOD 100
+#define LOOP_PERIOD 100  //.1 secs
 
 // Motors
 MotorDriver motorDriver;
@@ -58,7 +58,7 @@ void setup() {
   motorDriver.init();
 
   /* Keep track of time */
-  printer.printMessage("Starting main loop",10);
+  printer.printMessage("Starting main loop", 10);
   loopStartTime = millis();
 }
 
@@ -66,40 +66,50 @@ void setup() {
 void loop() {
 
   int currentTime = millis() - loopStartTime;
-  
-  ///////////  Don't change code above here! ////////////////////
-  // write code here to make the robot fire its motors in the sequence specified in the lab manual 
-  // the currentTime variable contains the number of ms since the robot was turned on 
-  // The motorDriver.drive function takes in 3 inputs arguments motorA_power, motorB_power, motorC_power: 
-  //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power); 
-  // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor 
-  // The following example will turn on motor B for four seconds between seconds 4 and 8 
-  if (currentTime > 4000 && currentTime <8000) {
-    motorDriver.drive(0,120,0);
-  } else {
-    motorDriver.drive(0,0,0);
-  }
 
-  // DONT CHANGE CODE BELOW THIS LINE 
+  ///////////  Don't change code above here! ////////////////////
+  // write code here to make the robot fire its motors in the sequence specified in the lab manual
+  // the currentTime variable contains the number of ms since the robot was turned on
+  // The motorDriver.drive function takes in 3 inputs arguments motorA_power, motorB_power, motorC_power:
+  //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power);
+  // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor
+  // The following example will turn on motor B for four seconds between seconds 4 and 8
+  if (currentTime > 4000 && currentTime < 8000) {
+    motorDriver.drive(0, 120, 0);  // Right Motor B
+    // motorDriver.drive(120,0,0); //Added code Left Motor A
+    // motorDriver.drive(0,0,120); //Added code Vertical Motor C
+  } else {
+    motorDriver.drive(0, 0, 0);
+  }
+  // For Obstacle Course
+
+  delay(120000);                   // 2mins delay for setup
+  motorDriver.drive(0, 0, -255);   // Go Down
+  delay(3000);                     // for 3 seconds
+  motorDriver.drive(255, 255, 0);  // Go Forward
+  delay(8000);                     // for 8 seconds
+  motorDriver.drive(0, 0, 255);    // Go UP
+  delay(5000);                     // for 5 seconds
+  motorDriver.drive(0, 0, 0);      //Stop
+  // DONT CHANGE CODE BELOW THIS LINE
   // --------------------------------------------------------------------------
 
-  
-  if ( currentTime-printer.lastExecutionTime > LOOP_PERIOD ) {
+
+  if (currentTime - printer.lastExecutionTime > LOOP_PERIOD) {
     printer.lastExecutionTime = currentTime;
-    printer.printValue(0,imu.printAccels());
-    printer.printValue(1,imu.printRollPitchHeading());
-    printer.printValue(2,motorDriver.printState());
+    printer.printValue(0, imu.printAccels());
+    printer.printValue(1, imu.printRollPitchHeading());
+    printer.printValue(2, motorDriver.printState());
     printer.printToSerial();  // To stop printing, just comment this line out
   }
 
-  if ( currentTime-imu.lastExecutionTime > LOOP_PERIOD ) {
+  if (currentTime - imu.lastExecutionTime > LOOP_PERIOD) {
     imu.lastExecutionTime = currentTime;
-    imu.read(); // this is a sequence of blocking I2C read calls
+    imu.read();  // this is a sequence of blocking I2C read calls
   }
 
-  if ( currentTime-logger.lastExecutionTime > LOOP_PERIOD && logger.keepLogging) {
+  if (currentTime - logger.lastExecutionTime > LOOP_PERIOD && logger.keepLogging) {
     logger.lastExecutionTime = currentTime;
     logger.log();
   }
-
 }
