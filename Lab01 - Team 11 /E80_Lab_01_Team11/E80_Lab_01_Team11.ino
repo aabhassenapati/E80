@@ -60,6 +60,22 @@ void setup() {
   /* Keep track of time */
   printer.printMessage("Starting main loop", 10);
   loopStartTime = millis();
+
+  // motorDriver.drive(0, 0, -255);
+  // delay(5000);
+  //motorDriver.drive(255, 0, 0);
+  //delay(1000);
+  //motorDriver.drive(0, 255, 0);
+  //delay(1000);
+  delay(35000);
+  motorDriver.drive(0, 0, 255);   // Go Down
+  delay(4000);                     // for 3 seconds
+  motorDriver.drive(-210, -255, 0);  // Go Forward
+  delay(4000);                     // for 8 seconds
+  motorDriver.drive(0, 0, -255);    // Go UP
+  delay(5000);                     // for 5 seconds
+  motorDriver.drive(0, 0, 0);      //Stop 8 
+  
 }
 
 
@@ -74,16 +90,16 @@ void loop() {
   //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power);
   // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor
   // The following example will turn on motor B for four seconds between seconds 4 and 8
-  if (currentTime > 4000 && currentTime < 8000) {
-    motorDriver.drive(0, 120, 0);  // Right Motor B
-    // motorDriver.drive(120,0,0); //Added code Left Motor A
-    // motorDriver.drive(0,0,120); //Added code Vertical Motor C
-  } else {
-    motorDriver.drive(0, 0, 0);
-  }
+  // if (currentTime > 4000 && currentTime < 8000) {
+  //   motorDriver.drive(0, 120, 0);  // Right Motor B
+  //   // motorDriver.drive(120,0,0); //Added code Left Motor A
+  //   // motorDriver.drive(0,0,120); //Added code Vertical Motor C
+  // } else {
+  //   motorDriver.drive(0, 0, 0);
+  // }
   // For Obstacle Course
-
-  delay(120000);                   // 2mins delay for setup
+ /*
+  //delay(120000);                   // 2mins delay for setup
   motorDriver.drive(0, 0, -255);   // Go Down
   delay(3000);                     // for 3 seconds
   motorDriver.drive(255, 255, 0);  // Go Forward
@@ -91,6 +107,8 @@ void loop() {
   motorDriver.drive(0, 0, 255);    // Go UP
   delay(5000);                     // for 5 seconds
   motorDriver.drive(0, 0, 0);      //Stop
+
+  */
   // DONT CHANGE CODE BELOW THIS LINE
   // --------------------------------------------------------------------------
 

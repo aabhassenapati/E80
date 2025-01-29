@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '003'; % file number for the data you want to read
+filenum = '092'; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -45,9 +45,19 @@ for i=1:numel(varTypes)
 end
 fclose(fid);
 
+
+
 %% Process your data here
 % Statistics over the collected data and histogram with Mean, Std, etc
-accelXY=accelX-accelY
+
+accelx = accelX 
+accely = accelY 
+accelz = accelZ 
+
+accelXY = accelx-accely
+accelXZ = accelx-accelz
+accelYZ = accely-accelz
+
 data = accelXY
 confLev = 0.95;
 xbar = mean(data) % Arithmetic mean
@@ -60,9 +70,9 @@ lambda = StdT*ESE % 1/2 of the confidence interval �lambda
 
 %Figure to Line plot the data from Accelerometer in Z axis:
 figure(2)
-zp = scatter(1:63,accelZ, "blue")
-%plot(accelZ,"o")
-meanz= mean(accelZ)
+%zp = scatter(1:63,accelZ, "blue")
+plot(accelz,"ob")
+meanz= mean(accelz)
 hold on
 box on
 zmean = yline(meanz,"red", "mean = " + meanz)
@@ -74,9 +84,9 @@ ylabel ("Acceleration in Z axis")
 hold off
 
 figure(3)
-yp = scatter(1:63,accelY, "blue")
-%plot(accelZ,"o")
-meany= mean(accelY)
+%yp = scatter(1:63,accelY, "blue")
+plot(accely,"ob")
+meany= mean(accely)
 hold on
 box on
 ymean = yline(meany,"red", "mean = " + meany)
@@ -88,9 +98,9 @@ ylabel ("Acceleration in Y axis")
 hold off
 
 figure(4)
-xp = scatter(1:63,accelX, "blue")
-%plot(accelZ,"o")
-meanx= mean(accelX)
+%xp = scatter(1:63,accelX, "blue")
+plot(accelx,"ob")
+meanx= mean(accelx)
 hold on
 box on
 xmean = yline(meanx,"red", "mean = " + meanx)
@@ -100,6 +110,25 @@ title("Acceleration in X vs Sample No. #")
 xlabel ("Sample No. #")
 ylabel ("Acceleration in X axis")
 hold off
+
+figure(5)
+%xp = scatter(1:63,accelX, "blue")
+p1 = plot(accelX)
+hold on
+p2 = plot(accelY)
+p3 = plot(accelZ)
+
+hold on
+box on
+
+legend([p1,p2, p3], {"X Acceleration", "Y Acceleration", "Z Acceleration"})
+title("Acceleration in all Axes vs Sample #")
+xlabel ("Sample No. #")
+ylabel ("Acceleration")
+hold off
+
+
+
 
 
 % figure(1) for histogram not needed
