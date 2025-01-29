@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '092'; % file number for the data you want to read
+filenum = '093'; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -50,7 +50,7 @@ fclose(fid);
 %% Process your data here
 % Statistics over the collected data and histogram with Mean, Std, etc
 
-accelx = accelX 
+accelx = accelX
 accely = accelY 
 accelz = accelZ 
 
@@ -73,20 +73,33 @@ figure(2)
 %zp = scatter(1:63,accelZ, "blue")
 plot(accelz,"ob")
 meanz= mean(accelz)
+nz=length(accelz)
+stdz = std(accelz)
+esez=stdz/sqrt(nz)
+stdtz=tinv((1-0.5*(1-confLev)),nz-1)
+lambdaz = stdtz*esez
 hold on
 box on
 zmean = yline(meanz,"red", "mean = " + meanz)
 legend(zmean, "Mean Z") 
-title("Acceleration in Z vs Sample No. #")
+title("Accelerated Z #")
 %ylim([800 1400])
 xlabel ("Sample No. #")
 ylabel ("Acceleration in Z axis")
 hold off
 
 figure(3)
+
 %yp = scatter(1:63,accelY, "blue")
 plot(accely,"ob")
 meany= mean(accely)
+
+meany= mean(accely)
+ny=length(accely)
+stdy = std(accely)
+esey=stdy/sqrt(ny)
+stdty=tinv((1-0.5*(1-confLev)),ny-1)
+lambday = stdty*esey
 hold on
 box on
 ymean = yline(meany,"red", "mean = " + meany)
@@ -101,6 +114,11 @@ figure(4)
 %xp = scatter(1:63,accelX, "blue")
 plot(accelx,"ob")
 meanx= mean(accelx)
+nx=length(accelx)
+stdx = std(accelx)
+esex=stdy/sqrt(nx)
+stdtx=tinv((1-0.5*(1-confLev)),nx-1)
+lambdax = stdtx*esex
 hold on
 box on
 xmean = yline(meanx,"red", "mean = " + meanx)

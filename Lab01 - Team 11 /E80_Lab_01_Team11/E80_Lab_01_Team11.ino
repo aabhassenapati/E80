@@ -67,6 +67,7 @@ void setup() {
   //delay(1000);
   //motorDriver.drive(0, 255, 0);
   //delay(1000);
+  /*
   delay(35000);
   motorDriver.drive(0, 0, 255);   // Go Down
   delay(4000);                     // for 3 seconds
@@ -75,7 +76,7 @@ void setup() {
   motorDriver.drive(0, 0, -255);    // Go UP
   delay(5000);                     // for 5 seconds
   motorDriver.drive(0, 0, 0);      //Stop 8 
-  
+ */ 
 }
 
 
@@ -98,17 +99,25 @@ void loop() {
   //   motorDriver.drive(0, 0, 0);
   // }
   // For Obstacle Course
- /*
-  //delay(120000);                   // 2mins delay for setup
-  motorDriver.drive(0, 0, -255);   // Go Down
-  delay(3000);                     // for 3 seconds
-  motorDriver.drive(255, 255, 0);  // Go Forward
-  delay(8000);                     // for 8 seconds
-  motorDriver.drive(0, 0, 255);    // Go UP
-  delay(5000);                     // for 5 seconds
-  motorDriver.drive(0, 0, 0);      //Stop
+ 
 
-  */
+
+  if (currentTime > 35000 && currentTime < 38000)
+  {
+  motorDriver.drive(0, 0, 255); // Go Down 3 secs
+  }
+  if (currentTime > 38000 && currentTime < 42000)
+  {
+  motorDriver.drive(-210, -255, 0); // Go Forward 4 secs, left motor is little fast so slow it down
+  }
+  if (currentTime > 42000 && currentTime < 47000)
+  {
+  motorDriver.drive(0, 0, -255); //Go Up 5 secs
+  }
+  else {
+    motorDriver.drive(0, 0, 0);
+  }
+
   // DONT CHANGE CODE BELOW THIS LINE
   // --------------------------------------------------------------------------
 
