@@ -5,7 +5,8 @@ Authors:
     Wilson Ives (wives@g.hmc.edu) '20 (contributed in 2018)
     Christopher McElroy (cmcelroy@g.hmc.edu) '19 (contributed in 2017)  
     Josephine Wong (jowong@hmc.edu) '18 (contributed in 2016)
-    Apoorva Sharma (asharma@hmc.edu) '17 (contributed in 2016)                    
+    Apoorva Sharma (asharma@hmc.edu) '17 (contributed in 2016)    
+    Team 11                
 */
 
 #include <Arduino.h>
