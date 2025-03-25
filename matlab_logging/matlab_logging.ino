@@ -19,7 +19,7 @@ byte message[2*BUFFER_SIZE];
 void loop() {
   read_index = 0;
   request_size=0;
-  while(!Serial.available()) {}
+  //while(!Serial.available()) {}
   while(Serial.available()){
     request[read_index] = Serial.read();  // Expect an ASCII number null terminated
     read_index++;
