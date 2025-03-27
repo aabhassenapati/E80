@@ -66,10 +66,9 @@ xlabel('X Coordinate (m)')
 ylabel('Y Coordinate (m)')
 title('XY Position of Board Stack')
 hold on 
-x2 = 0:dt:0.5;
-y2 = zeros(length(x2));
-plot(x2, y2)
-xlim = -.1
-legend('XY Coordinates of Board Stack', "Ideal 0.5 m Path")
+x2 =ones(length(axx));
+plot(x2)
 
+yvnp = yv + plusie'; % Velocity plus confidence bound
+vnm = yv - plusie'; 
 
