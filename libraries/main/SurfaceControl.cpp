@@ -44,6 +44,7 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     }
 
     // set up variables
+    // where do we set the waypoint coords
     int x_des = getWayPoint(0);
     int y_des = getWayPoint(1);
 
@@ -59,8 +60,11 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     //yaw_Des = atan2(y_des - state->y, x_des - state->x);
     //yaw_error = yaw_Des - yaw;
     //u = Kp*yaw_error;
-    //uR = avgPower + u;
-    //uL = avgPower - u;
+
+    // find experimental value and bound 0 to 127
+    //uR = (avgPower + u)*Kr;
+    //uL = (avgPower - u)*Kl;
+
     
   }
   else {
