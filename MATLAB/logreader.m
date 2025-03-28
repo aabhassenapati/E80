@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '049'; % file number for the data you want to read
+filenum = '058'; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -49,3 +49,8 @@ fclose(fid);
 
 
 
+plot(x,y)
+image_new = imread("2.png");
+imshow(image_new)
+hold on
+plot((x/6)+5,(y/8 - 600), "LineWidth",10)
