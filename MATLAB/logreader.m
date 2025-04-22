@@ -48,9 +48,3 @@ fclose(fid);
 %% Process your data here
 
 
-
-plot(x,y)
-image_new = imread("2.png");
-imshow(image_new)
-hold on
-plot((x/6)+5,(y/8 - 600), "LineWidth",10)
