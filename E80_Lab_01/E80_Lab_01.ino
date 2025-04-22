@@ -74,13 +74,13 @@ void loop() {
   //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power);
   // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor
   // The following example will turn on motor B for four seconds between seconds 4 and 8
-  if (currentTime > 15000 && currentTime < 20000) {
-    motorDriver.drive(230, 250, 0);  // Right Motor B and Left Motor
+  if (currentTime > 15000 && currentTime < 35000) {
+    motorDriver.drive(255, 255, 0);  // Right Motor B and Left Motor
     // motorDriver.drive(120,0,0); //Added code Left Motor A
     // motorDriver.drive(0,0,120); //Added code Vertical Motor C
   } 
-  else if (currentTime>21000 && currentTime < 26000) {
-    motorDriver.drive(-250, -230, 0);
+  else if (currentTime>35000 && currentTime < 55000) {
+    motorDriver.drive(-255, -255, 0);
 
   }
   else {
@@ -102,9 +102,12 @@ void loop() {
 
   if (currentTime - printer.lastExecutionTime > LOOP_PERIOD) {
     printer.lastExecutionTime = currentTime;
-    printer.printValue(0, imu.printAccels());
-    printer.printValue(1, imu.printRollPitchHeading());
-    printer.printValue(2, motorDriver.printState());
+    printer.printValue(0,adc.printSample());
+    printer.printValue(1,logger.printState());
+    printer.printValue(2, imu.printAccels());
+    printer.printValue(3,motor_driver.printState());
+    printer.printValue(4, imu.printRollPitchHeading());
+    printer.printValue(5, motorDriver.printState());
     printer.printToSerial();  // To stop printing, just comment this line out
   }
 

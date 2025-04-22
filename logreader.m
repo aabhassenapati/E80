@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = ['183']; % file number for the data you want to read
+filenum = ['178']; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -129,21 +129,20 @@ xlabel ("Sample No. #")
 ylabel ("Acceleration in X axis")
 hold off
 
-figure(5)
 %xp = scatter(1:63,accelX, "blue")
-p1 = plot(accelX)
-hold on
-p2 = plot(accelY)
-p3 = plot(accelZ)
-
-hold on
+%p1 = plot(accelX)
+%p2 = plot(accelY)
+%p3 = plot(accelZ)
+p4 = plot(A00)
+p5 = plot(A01)
+p6 = plot(A02)
 box on
 
-legend([p1,p2, p3], {"X Acceleration", "Y Acceleration", "Z Acceleration"})
-title("Acceleration in all Axes vs Sample #")
-xlabel ("Sample No. #")
-ylabel ("Acceleration")
-hold off
+%legend([p1,p2, p3], {"X Acceleration", "Y Acceleration", "Z Acceleration"})
+%title("Acceleration in all Axes vs Sample #")
+%xlabel ("Sample No. #")
+%ylabel ("Acceleration")
+
 
 
 
