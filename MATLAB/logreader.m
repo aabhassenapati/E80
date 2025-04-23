@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '058'; % file number for the data you want to read
+filenum = '178'; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
