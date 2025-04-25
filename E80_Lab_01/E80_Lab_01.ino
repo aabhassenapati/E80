@@ -74,6 +74,7 @@ void loop() {
   //       void motorDriver.drive(int motorA_power,int motorB_power,int motorC_power);
   // the value of motorX_power can range from -255 to 255, and sets the PWM applied to the motor
   // The following example will turn on motor B for four seconds between seconds 4 and 8
+<<<<<<< Updated upstream
   if (currentTime > 15000 && currentTime < 35000) {
     motorDriver.drive(255, 255, 0);  // Right Motor B and Left Motor
     // motorDriver.drive(120,0,0); //Added code Left Motor A
@@ -83,11 +84,19 @@ void loop() {
     motorDriver.drive(-255, -255, 0);
 
   }
+=======
+  if (currentTime > 4000) {
+    motorDriver.drive(255, 255, 255);  // Right Motor B
+    // motorDriver.drive(120,0,0); //Added code Left Motor A
+    // motorDriver.drive(0,0,120); //Added code Vertical Motor C
+  } 
+>>>>>>> Stashed changes
   else {
     motorDriver.drive(0, 0, 0);
   }
   // For Obstacle Course
 
+<<<<<<< Updated upstream
   //delay(120000);                   // 2mins delay for setup
   //motorDriver.drive(0, 0, -255);   // Go Down
   //delay(3000);                     // for 3 seconds
@@ -96,6 +105,9 @@ void loop() {
   //motorDriver.drive(0, 0, 255);    // Go UP
   //delay(5000);                     // for 5 seconds
   //motorDriver.drive(0, 0, 0);      //Stop
+=======
+       //Stop
+>>>>>>> Stashed changes
   // DONT CHANGE CODE BELOW THIS LINE
   // --------------------------------------------------------------------------
 

@@ -68,4 +68,11 @@ private:
                                 {  0.0000,     0.0000,    0.0243   } };
 
 
+<<<<<<< Updated upstream
+=======
+  // Offsets applied to raw x/y/z mag values
+
+};
+
+>>>>>>> Stashed changes
 #endif

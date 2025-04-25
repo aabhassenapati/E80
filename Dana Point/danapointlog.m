@@ -97,19 +97,36 @@ v0 = double(A00)*3.3/1023;
 % voltage before op amp
 v1 = -(v0 - (1 + (Rf2/Rn2))*(5*Rg2/(Rg2+Rp2)))*(Rn2/Rf2);
 
-% voltage before voltage divider
-v2 = ((r22+r1)/r1)*v1;
+% voltage of battery
+vb = ((r22+r1)/r1)*v1;
 
 figure(2)
 %subplot(3,1,1)
-plot(t,v2)
+plot(t,vb)
 xlabel("Time (s)")
 ylabel("Voltage (V)")
 title("Voltage of the Battery")
 %subplot(3,1,2)
 
 figure(3)
-plot(t,Current_Sense)
+
+R1 = 0.01;
+R2 = 10000;
+R3 = 330000;
+
+v_sense = double(Current_Sense)*3.3/1023; %[V]
+
+Ib = zeros(length(Current_Sense));
+
+for i = 1:length(Current_Sense)
+    Ib(i) = (vb(i)/R1) + (v_sense(i)/R3);
+end
+    
+
+plot(t,Ib)
+xlabel("Time (s)")
+ylabel("Current (A)")
+title("Current from Battery")
 
 
 
