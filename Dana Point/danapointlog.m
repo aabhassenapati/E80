@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '287'; % file number for the data you want to read
+filenum = '299'; % file number for the data you want to read
 infofile = strcat('inf', filenum, '.TXT');
 datafile = strcat('log', filenum, '.BIN');
 
@@ -46,7 +46,7 @@ end
 fclose(fid);
 
 %% Process your data here
-
+clf
 % Thermistors 
 Rp = 47000;
 Rg = 49000;
