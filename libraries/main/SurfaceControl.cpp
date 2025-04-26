@@ -55,18 +55,7 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     ///////////////////////////////////////////////////////////
     // INSERT P CONTROL CODE HERE
     ///////////////////////////////////////////////////////////
-
-    yaw_des = atan2(y_des - state->y, x_des - state->x);
-    yaw = state->yaw; 
-    yaw_error = yaw_des - yaw;
-    u = Kp*angleDiff(yaw_error);
-    uR = (avgPower + u)*Kr;
-    uL = (avgPower - u)*Kl;
-    if (uR < 0) uR = 0;
-    if (uR > 255) uR = 255;
-    if (uL < 0) uL = 0;
-    if (uL > 255) uL = 255;
-
+    
   }
   else {
     gpsAcquired = 0;
