@@ -72,7 +72,7 @@ therm2 = -0.000681527*t2r + 58.13793;
 snum = 1:1:length(A01);
 t = snum/10;
 
-% motor a is A02, motor b is A01
+% motor a is A02 - red thermistor, motor b is A01 - white thermistor
 figure(1)
 plot(t,therm1)
 hold on
@@ -95,10 +95,10 @@ r1 = 147000;
 v0 = double(A00)*3.3/1023;
 
 % voltage before op amp
-v1 = -(v0 - (1 + (Rf2/Rn2))*(5*Rg2/(Rg2+Rp2)))*(Rn2/Rf2);
+v_ = -(v0-(1+10)*(500/115))/(10);
 
 % voltage of battery
-vb = ((r22+r1)/r1)*v1;
+vb = ((100+147)/100)*v_;
 
 figure(2)
 %subplot(3,1,1)
@@ -110,16 +110,16 @@ title("Voltage of the Battery")
 
 figure(3)
 
-R1 = 0.01;
-R2 = 10000;
-R3 = 330000;
+R1 = 0.1;
+R2 = 10000.0;
+R3 = 330000.0;
 
 v_sense = double(Current_Sense)*3.3/1023; %[V]
 
-Ib = zeros(length(Current_Sense));
+Ib = zeros(1,length(Current_Sense)); 
 
 for i = 1:length(Current_Sense)
-    Ib(i) = (vb(i)/R1) + (v_sense(i)/R3);
+    Ib(i) = v_sense(i)*(R2/(R3*R1)); 
 end
     
 
