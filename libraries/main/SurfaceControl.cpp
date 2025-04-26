@@ -15,7 +15,7 @@ SurfaceControl::SurfaceControl(void)
 void SurfaceControl::init(const int totalWayPoints_in, double * wayPoints_in, int navigateDelay_in) {
   totalWayPoints = totalWayPoints_in;
   // create wayPoints array on the Heap so that it isn't erased once the main Arduino loop starts
-  wayPoints = new double[totalWayPoints];
+  wayPoints = new double[2*totalWayPoints]; // Create a 1-d array to hold the waypoints in the format x0,y0,x1,y1,...
   for (int i=0; i<totalWayPoints; i++) { 
     wayPoints[i] = wayPoints_in[i];
   }
@@ -55,18 +55,7 @@ void SurfaceControl::navigate(xy_state_t * state, gps_state_t * gps_state_p, int
     ///////////////////////////////////////////////////////////
     // INSERT P CONTROL CODE HERE
     ///////////////////////////////////////////////////////////
-
-    yaw_des = atan2(y_des - state->y, x_des - state->x);
-    yaw = state->yaw; 
-    yaw_error = yaw_des - yaw;
-    u = Kp*angleDiff(yaw_error);
-    uR = (avgPower + u)*Kr;
-    uL = (avgPower - u)*Kl;
-    if (uR < 0) uR = 0;
-    if (uR > 255) uR = 255;
-    if (uL < 0) uL = 0;
-    if (uL > 255) uL = 255;
-
+    
   }
   else {
     gpsAcquired = 0;

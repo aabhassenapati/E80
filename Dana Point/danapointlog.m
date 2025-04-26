@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = '178'; % file number for the data you want to read
+filenum = '284'; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -54,8 +54,8 @@ Rf = 20000;
 Rn = 10000;
 r2 = 47000;
 
-t1 = double(A01)*3.3/1023; %[V]
-t2 = double(A02)*3.3/1023; %[V]
+t1 = double(A01)*(3.3/1024); %[V]
+t2 = double(A02)*(3.3/1024); %[V]
 
 % voltage after voltage divider [V]
 t1v = -(t1 - (1 + (Rf/Rn))*(5*Rg/(Rg+Rp)))*(Rn/Rf);
@@ -92,7 +92,7 @@ r22 = 100000;
 r1 = 147000;
 
 % [V]
-v0 = double(A00)*3.3/1023;
+v0 = double(A00)*(3.3/1023);
 
 % voltage before op amp
 v_ = -(v0-(1+10)*(500/115))/(10);
