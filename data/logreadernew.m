@@ -4,7 +4,7 @@
 clear;
 %clf;
 
-filenum = ['284']; % file number for the data you want to read
+filenum = ['297']; % file number for the data you want to read
 infofile = strcat('INF', filenum, '.TXT');
 datafile = strcat('LOG', filenum, '.BIN');
 
@@ -50,7 +50,7 @@ fclose(fid);
 %% Process your data here
 % Statistics over the collected data and histogram with Mean, Std, etc
 figure(1)
-p4 = plot(A00)
+p4 = plot(1024-A00)
 hold on
 plot(motorA)
 plot(motorB)

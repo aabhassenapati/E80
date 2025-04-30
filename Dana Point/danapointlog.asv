@@ -2,11 +2,11 @@
 % Use this script to read data from your micro SD card
 
 clear;
-%clf;
+clf;
 
-filenum = '284'; % file number for the data you want to read
-infofile = strcat('INF', filenum, '.TXT');
-datafile = strcat('LOG', filenum, '.BIN');
+filenum = '299'; % file number for the data you want to read
+infofile = strcat('inf', filenum, '.TXT');
+datafile = strcat('log', filenum, '.BIN');
 
 %% map from datatype to length in bytes
 dataSizes.('float') = 4;
@@ -46,7 +46,7 @@ end
 fclose(fid);
 
 %% Process your data here
-
+clf
 % Thermistors 
 Rp = 47000;
 Rg = 49000;
@@ -65,14 +65,16 @@ t2v = -(t2 - (1 + (Rf/Rn))*(5*Rg/(Rg+Rp)))*(Rn/Rf);
 t1r = arrayfun(@(vo) r2*(5-vo)/vo, t1v);
 t2r = arrayfun(@(vo) r2*(5-vo)/vo, t2v);
 
+%recheck the equations and for the range of 15-55 degree celcius range with
+%more precision and do a steihert kind of fit
 % temp recorded [C]
-therm1 = 290 - 24.2*log(t1r);
-therm2 = -0.000681527*t2r + 58.13793;
+therm1 = 299 - 25.5*log(t1r);
+therm2 =  290 - 24.2*log(t2r);
 
 snum = 1:1:length(A01);
 t = snum/10;
 
-% motor a is A02 - red thermistor, motor b is A01 - white thermistor
+% motor a is A02 - red thermistor, motor b is A01 - white thermistor -
 figure(1)
 plot(t,therm1, "b")
 hold on
@@ -137,3 +139,5 @@ figure(4)
 
 
 
+%effect of things like kelp getting stuck on motors and increasing current
+%draw
