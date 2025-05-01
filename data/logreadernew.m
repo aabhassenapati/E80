@@ -60,7 +60,7 @@ hold off
 
 
 figure(2)
-p5 = plot(1024-A01)
+p5 = plot(A01)
 hold on
 plot(motorA)
 hold off
@@ -68,7 +68,7 @@ hold off
 
 
 figure(3)
-p6 = plot(1024-A02)
+p6 = plot(A02)
 hold on
 plot(motorB)
 hold off

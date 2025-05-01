@@ -4,7 +4,7 @@
 clear;
 clf;
 
-filenum = '008'; % file number for the data you want to read
+filenum = '291'; % file number for the data you want to read
 infofile = strcat('inf', filenum, '.TXT');
 datafile = strcat('log', filenum, '.BIN');
 
@@ -54,8 +54,8 @@ Rf = 20000;
 Rn = 10000;
 r2 = 47000;
 
-t1 = double(A01)*(3.3/1024); %[V]
-t2 = double(A02)*(3.3/1024); %[V]
+t1 = double(A01+1)*(3.3/1024); %[V]
+t2 = double(A02+1)*(3.3/1024); %[V]
 
 % voltage after voltage divider [V]
 t1v = -(t1 - (1 + (Rf/Rn))*(5*Rg/(Rg+Rp)))*(Rn/Rf);
@@ -68,8 +68,8 @@ t2r = arrayfun(@(vo) r2*(5-vo)/vo, t2v);
 %recheck the equations and for the range of 15-55 degree celcius range with
 %more precision and do a steihert kind of fit
 % temp recorded [C]
-therm1 = 299 - 25.5*log(t1r);
-therm2 =  290 - 24.2*log(t2r);
+therm1 = 277 - 23.4*log(t1r);
+therm2 =  274 - 23.1*log(t2r);
 
 snum = 1:1:length(A01);
 t = snum/10;
@@ -77,14 +77,19 @@ t = snum/10;
 % motor a is A02 - red thermistor, motor b is A01 - white thermistor -
 figure(1)
 plot(t,therm1, "b")
-%plot(t,motorA)
 hold on
 plot(t,therm2, "r")
 xlabel("Time (s)")
 ylabel("Temperature (C)")
 title("Temperature of Motor Drivers")
 legend("Motor B", "Motor A")
+hold off
 
+figure(5)
+hold on
+plot(t, A02+1, "r")
+plot(t, A01+1, "b")
+hold off
 
 % Voltage circuit - pin A00
 Rp2 = 15000;
@@ -95,7 +100,7 @@ r22 = 100000;
 r1 = 147000;
 
 % [V]
-v0 = double(A00)*(3.3/1023);
+v0 = double(A00+1)*(3.3/1024);
 
 % voltage before op amp
 v_ = -(v0-(1+10)*(500/115))/(10);
@@ -117,7 +122,7 @@ R1 = 0.1;
 R2 = 10000.0;
 R3 = 330000.0;
 
-v_sense = double(Current_Sense)*3.3/1023; %[V]
+v_sense = double(Current_Sense+1)*3.3/1024; %[V]
 
 Ib = zeros(1,length(Current_Sense)); 
 

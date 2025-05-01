@@ -132,10 +132,10 @@ void loop() {
   // } 
 
   if (currentTime>30000 && currentTime <90000) {
-    motor_driver.drive(255,-255, 0);
+    motor_driver.drive(50,-50, 0);
   }
   if (currentTime>90000 && currentTime < 150000) {
-    motor_driver.drive(-255, 255, 0);
+   motor_driver.drive(-50, 50, 0);
 
   }
   if(currentTime>150000){
