@@ -137,7 +137,12 @@ ylabel("Current (mA)")
 title("Current from Battery")
 
 
+power = Ib.*vb';
 figure(4)
+plot(t,power)
+xlabel("Time (s)")
+ylabel("Power (W)")
+title("Power draw of Circuit")
 
 
 
