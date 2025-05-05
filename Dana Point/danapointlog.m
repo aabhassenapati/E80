@@ -1,10 +1,10 @@
 % logreader.m
 % Use this script to read data from your micro SD card
 
-clear;
-clf;
+function output = danapoint(filenum)
 
-filenum = '005'; % file number for the data you want to read
+
+%filenum = ['013']; % file number for the data you want to read
 infofile = strcat('inf', filenum, '.TXT');
 datafile = strcat('log', filenum, '.BIN');
 
@@ -75,21 +75,7 @@ snum = 1:1:length(A01);
 t = snum/10;
 
 % motor a is A02 - red thermistor, motor b is A01 - white thermistor -
-figure(1)
-plot(t,therm1, "b")
-hold on
-plot(t,therm2, "r")
-xlabel("Time (s)")
-ylabel("Temperature (C)")
-title("Temperature of Motor Drivers")
-legend("Motor B", "Motor A")
-hold off
 
-figure(5)
-hold on
-plot(t, A02+1, "r")
-plot(t, A01+1, "b")
-hold off
 
 % Voltage circuit - pin A00
 Rp2 = 15000;
@@ -108,15 +94,6 @@ v_ = -(v0-(1+10)*(500/115))/(10);
 % voltage of battery
 vb = ((100+147)/100)*v_;
 
-figure(2)
-%subplot(3,1,1)
-plot(t,vb)
-xlabel("Time (s)")
-ylabel("Voltage (V)")
-title("Voltage of the Battery")
-%subplot(3,1,2)
-
-figure(3)
 
 R1 = 0.1;
 R2 = 10000.0;
@@ -129,24 +106,131 @@ Ib = zeros(1,length(Current_Sense));
 for i = 1:length(Current_Sense)
     Ib(i) = v_sense(i)*(R2/(R3*R1)); 
 end
-    
 
-plot(t,1000*Ib)
+power = vb.*Ib';
+totalpower = trapz(power(120:1500))
+
+
+%output = [therm1, therm2, vb, Ib];
+
+figure(1)
+%plot(t,movmean(therm1,60), "b")
+hold on
+plot(t,movmean(therm2,60))
+xlabel("Time (s)")
+xlim([0 400])
+ylabel("Temperature (C)")
+title("Temperature of Motor Driver IC")
+legend("Motor A")
+hold off
+
+
+figure(2)
+hold on
+%subplot(3,1,1)
+plot(t,movmean(vb, 60))
+xlim([0 400])
+xlabel("Time (s)")
+ylabel("Voltage (V)")
+title("Voltage of the Battery")
+hold off
+%subplot(3,1,2)
+
+figure(3)
+hold on
+plot(t,movmean(1000*Ib, 60))
+xlim([0 400])
 xlabel("Time (s)")
 ylabel("Current (mA)")
 title("Current from Battery")
+hold off
 
-
-power = Ib.*vb';
 figure(4)
-plot(t,power)
+hold on
+yyaxis left
+plot(t,therm2)
+xlim([0 400])
 xlabel("Time (s)")
-ylabel("Power (W)")
-title("Power draw of Circuit")
+ylabel("Temperature (C)")
+yyaxis right
+plot(t, motorA)
+ylabel("PWM of Motor A")
+title("Step-Response of Motor Driver")
+hold off
+
+figure (5)
+hold on
+plot(t,movmean(power,60))
+xlim([0 400])
+xlabel("Time (s)")
+ylabel("Power consumed in (mW)")
+title("Power Consumed over Time")
+hold off
+
+figure (6)
+totalmeanpower = trapz(movmean(power(2000:3000),60));
+totalpowers = [5607.2,
+3656.3,
+2173.1,
+1201.8,
+619.8581];
+pwms = [255,  208, 164, 121, 78];
+pwmsnew =linspace(0, 256);
+pwmsn = [255, 208, 164, 121, 78];
+totalpowersn =[5607.2,
+3656.3,
+2173.1,
+1201.8,
+619.8581];
+%totalpowersn = [5495.4,  3837.4, 2283.7, 1245.6]
+hold on
+plot(pwms, totalpowers/1000, 'o')
+p = polyfit(pwmsn, totalpowersn, 2);
+v = polyval(p, pwmsnew);
+plot(pwmsnew, v/1000,'--')
+ylim([0 6])
+xlim([50 255])
+xlabel("PWM")
+ylabel("Total Power consumed in 120 secs(mW)")
+title("Total Power Consumed vs PWM")
+hold off
 
 
+batterydfiff = vb(150)-vb(2000)
+
+figure(7)
+
+tpowers =[5613.2,3655.9,2409.9,1407.9,619.8581];
+batterydiffs = [0.0573,
+0.0494,
+0.0279,
+0.0135,
+0.0119];
+
+plot(batterydiffs, tpowers,'o')
+ps = polyfit(batterydiffs, tpowers, 2);
+vs = polyval(ps, batterydiffs);
+plot(batterydiffs, vs,'--')
 
 
+end
+
+
+% figure(5)
+% hold on
+% plot(t, A02+1, "r")
+% plot(t, A01+1, "b")
+% hold off
+% 
+
+% figure(6)
+% hold on
+% plot(t, movmean(Ib,3))
+% plot(t, vb)
+% plot(t, Ib*vb)
+% hold off
+% 
+% 
 
 
 
