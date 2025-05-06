@@ -163,7 +163,7 @@ hold on
 plot(t,movmean(power,60))
 xlim([0 400])
 xlabel("Time (s)")
-ylabel("Power consumed in (mW)")
+ylabel("Power consumed in (W)")
 title("Power Consumed over Time")
 hold off
 
@@ -184,14 +184,14 @@ totalpowersn =[5607.2,
 619.8581];
 %totalpowersn = [5495.4,  3837.4, 2283.7, 1245.6]
 hold on
-plot(pwms, totalpowers/1000, 'o')
-p = polyfit(pwmsn, totalpowersn, 2);
+plot(pwms, totalpowers/1000, 'bo')
+p = polyfit(pwmsn, totalpowersn/1000, 2);
 v = polyval(p, pwmsnew);
-plot(pwmsnew, v/1000,'--')
+plot(pwmsnew, v,'r--')
 ylim([0 6])
 xlim([50 255])
 xlabel("PWM")
-ylabel("Total Power consumed in 120 secs(mW)")
+ylabel("Total Power consumed in 120 secs (kW)")
 title("Total Power Consumed vs PWM")
 hold off
 
