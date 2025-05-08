@@ -221,7 +221,7 @@ title("Max. Temp (℃) vs PWM")
 figure(9)
 hold on
 
-magxsm = movmean(magX,10)
+magxsm = movmean(magX,10);
 [peaks, locations] = findpeaks(magxsm);
 plot(t,magxsm);
 plot(t,magY);
