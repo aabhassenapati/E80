@@ -1,10 +1,10 @@
 % logreader.m
 % Use this script to read data from your micro SD card
 
-function output = danapoint(filenum)
+%function output = danapoint(filenum)
 
 
-%filenum = ['005']; % file number for the data you want to read
+filenum = ['005']; % file number for the data you want to read
 infofile = strcat('inf', filenum, '.TXT');
 datafile = strcat('log', filenum, '.BIN');
 
@@ -221,24 +221,23 @@ title("Max. Temp (℃) vs PWM")
 figure(9)
 hold on
 
-magxsm = movmean(magX,10)
-[peaks, locations] = findpeaks(magxsm);
-plot(t,magxsm);
-plot(t,magY);
-plot(t,magZ);
-plot(t,motorA);
+[peaks, locations] = findpeaks(magX)
+plot(t,magX)
+plot(t,magY)
+plot(t,magZ)
+plot(t,motorA)
 
 for i = 1:length(locations)
-   if locations(i)>1000 & locations(i)<1460
-    peakseligible(i) = peaks(i);
+   if locations(i)>120 & locations(i)<1460
+    peakseligible(i) = peaks(i)
    end
 end
 
-threshold = max(peakseligible)-15
+threshold = max(peakseligible)-10
 count = 0;
 
 for i = 1:length(locations)
-   if locations(i)>260 & locations(i)<1460
+   if locations(i)>120 & locations(i)<1460
     if peaks(i) > threshold
         peaksn(count+1)=peaks(i);
         locationsn(count+1)=locations(i);
@@ -247,15 +246,13 @@ for i = 1:length(locations)
    end
 end
 
-revs = count
-
-plot(locationsn/10, peaksn, 'o');
+plot(locationsn/10, peaksn, 'o')
 
 
 
 hold off
 
-end
+%end
 
 % figure(5)
 % hold on
