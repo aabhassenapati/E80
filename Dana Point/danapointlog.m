@@ -285,8 +285,7 @@ end
 % plot(t, vb)
 % plot(t, Ib*vb)
 % hold off
-% 
-% 
+
 
 
 
