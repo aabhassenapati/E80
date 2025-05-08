@@ -238,7 +238,7 @@ threshold = max(peakseligible)-15
 count = 0;
 
 for i = 1:length(locations)
-   if locations(i)>260 & locations(i)<1460
+   if locations(i)>255 & locations(i)<1460
     if peaks(i) > threshold
         peaksn(count+1)=peaks(i);
         locationsn(count+1)=locations(i);
@@ -250,10 +250,25 @@ end
 revs = count
 
 plot(locationsn/10, peaksn, 'o');
-
-
-
 hold off
+
+figure(10);
+revs = [37,33,30,26,18];
+omega = (2*pi*revs)/120;
+omegan = linspace(.5,2,100);
+opows = [5613.2,3527.1,2409.9,1407.9,619.8581];
+ratio = revs./opows;
+hold on
+plot(pwms, omega, 'bo')
+po = polyfit(pwms, omega, 2);
+v = polyval(po, pwmsnew);
+plot(pwmsnew, v,'r--')
+xlabel('PWM')
+xlim([20 260])
+ylabel('Angular Veolocity (rads/sec)')
+title('Angular Velocity (rads/sec) vs PWM')
+hold off
+
 
 end
 

@@ -6,7 +6,8 @@
 % danapointlog('020')
 % danapointlog('022')
 % danapointlog('024')
-% danapointlog('001')
+
+%danapointlog('001')
 
 danapointlog('012')
 danapointlog('010')
