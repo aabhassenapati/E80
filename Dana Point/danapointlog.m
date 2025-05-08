@@ -104,7 +104,7 @@ v_sense = double(Current_Sense+1)*3.3/1024; %[V]
 Ib = zeros(1,length(Current_Sense)); 
 
 for i = 1:length(Current_Sense)
-    Ib(i) = v_sense(i)*(R2/(R3*R1)); 
+    Ib(i) = v_sense(i)/(R1*(1 + (R3/R2))); 
 end
 
 power = vb.*Ib';
