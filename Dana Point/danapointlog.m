@@ -192,19 +192,17 @@ totalpowersn =[5607.2,
 %totalpowersn = [5495.4,  3837.4, 2283.7, 1245.6]
 hold on
 plot(pwms, totalpowers/10, 'bo')
-p = polyfit(pwmsn, totalpowersn/10, 2);
-v = polyval(p, pwmsnew);
-plot(pwmsnew, v,'r--')
+% p = polyfit(pwmsn, totalpowersn/10, 2);
+% v = polyval(p, pwmsnew);
+% plot(pwmsnew, v,'r--')
 xlim([50 255])
 xlabel("PWM")
 ylabel("Total Power consumed in 120 secs (W)")
 title("Total Power Consumed vs PWM")
-hold off
 batterydfiff = vb(150)-vb(2000)
-
-% ft = fittype('a*x^3 + b*x^2 + c*x + d');
-% [fitresult, gof] = fit(pwms', totalpowersn'/10, ft);
-% plot(fitresult, pwms', totalpowersn'/10)
+ft = fittype('a*x^3 + b*x^2 + c*x + d');
+[fitresult, gof] = fit(pwms, totalpowersn'/10, ft);
+plot(fitresult, pwms, totalpowersn'/10)
 % xlim([50 255])
 % xlabel("PWM")
 % ylabel("Total Power consumed in 120 secs (W)")
@@ -216,6 +214,7 @@ batterydfiff = vb(150)-vb(2000)
 % sigma_residuals = sqrt(sum(residuals.^2) / (n - 4));
 % batterydfiff = vb(150)-vb(2000)
 % ci = confint(fitresult);
+hold off
 
 figure(7)
 hold on

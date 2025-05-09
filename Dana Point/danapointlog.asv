@@ -104,7 +104,7 @@ v_sense = double(Current_Sense+1)*3.3/1024; %[V]
 Ib = zeros(1,length(Current_Sense)); 
 
 for i = 1:length(Current_Sense)
-    Ib(i) = v_sense(i)*(R2/(R3*R1)); 
+    Ib(i) = v_sense(i)/(R1*(1 + (R3/R2))); 
 end
 
 power = vb.*Ib';
@@ -192,17 +192,30 @@ totalpowersn =[5607.2,
 %totalpowersn = [5495.4,  3837.4, 2283.7, 1245.6]
 hold on
 plot(pwms, totalpowers/10, 'bo')
-p = polyfit(pwmsn, totalpowersn/10, 2);
-v = polyval(p, pwmsnew);
-plot(pwmsnew, v,'r--')
+% p = polyfit(pwmsn, totalpowersn/10, 2);
+% v = polyval(p, pwmsnew);
+% plot(pwmsnew, v,'r--')
 xlim([50 255])
 xlabel("PWM")
 ylabel("Total Power consumed in 120 secs (W)")
 title("Total Power Consumed vs PWM")
 hold off
-
-
 batterydfiff = vb(150)-vb(2000)
+
+ft = fittype('a*x^3 + b*x^2 + c*x + d');
+[fitresult, gof] = fit(pwms', totalpowersn'/10, ft);
+plot(fitresult, pwms', totalpowersn'/10)
+% xlim([50 255])
+% xlabel("PWM")
+% ylabel("Total Power consumed in 120 secs (W)")
+% title("Total Power Consumed vs PWM")
+% hold off
+% predicted = feval(fitresult, pwms); 
+% residuals = totalpowersn/10 - predicted;
+% n = length(pwms);
+% sigma_residuals = sqrt(sum(residuals.^2) / (n - 4));
+% batterydfiff = vb(150)-vb(2000)
+% ci = confint(fitresult);
 
 figure(7)
 hold on
@@ -257,9 +270,9 @@ revs = [37,33,30,26,18];
 omega = (2*pi*revs)/120;
 omegan = linspace(.5,2,100);
 opows = [5613.2,3527.1,2409.9,1407.9,619.8581];
-ratio = revs/opows;
+ratio = revs./opows;
 hold on
-plot(pwms, ratio, 'bo')
+plot(pwms, omega, 'bo')
 po = polyfit(pwms, omega, 2);
 v = polyval(po, pwmsnew);
 plot(pwmsnew, v,'r--')
@@ -285,8 +298,7 @@ end
 % plot(t, vb)
 % plot(t, Ib*vb)
 % hold off
-% 
-% 
+
 
 
 
