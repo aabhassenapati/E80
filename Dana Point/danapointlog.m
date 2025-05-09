@@ -200,9 +200,22 @@ xlabel("PWM")
 ylabel("Total Power consumed in 120 secs (W)")
 title("Total Power Consumed vs PWM")
 hold off
-
-
 batterydfiff = vb(150)-vb(2000)
+
+% ft = fittype('a*x^3 + b*x^2 + c*x + d');
+% [fitresult, gof] = fit(pwms', totalpowersn'/10, ft);
+% plot(fitresult, pwms', totalpowersn'/10)
+% xlim([50 255])
+% xlabel("PWM")
+% ylabel("Total Power consumed in 120 secs (W)")
+% title("Total Power Consumed vs PWM")
+% hold off
+% predicted = feval(fitresult, pwms); 
+% residuals = totalpowersn/10 - predicted;
+% n = length(pwms);
+% sigma_residuals = sqrt(sum(residuals.^2) / (n - 4));
+% batterydfiff = vb(150)-vb(2000)
+% ci = confint(fitresult);
 
 figure(7)
 hold on
