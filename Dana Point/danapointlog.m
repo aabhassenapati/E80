@@ -1,5 +1,6 @@
-% logreader.m
-% Use this script to read data from your micro SD card
+% danapointlog.m
+% Modified by Aabhas Senapati and Elena Schwartz
+%E80 Data Analysis
 
 function output = danapoint(filenum)
 
@@ -224,12 +225,15 @@ hold on
 magxsm = movmean(magX,10);
 [peaks, locations] = findpeaks(magxsm);
 plot(t,magxsm);
-plot(t,magY);
-plot(t,magZ);
-plot(t,motorA);
+xlim([0 200])
+xlabel("Time (seconds)")
+ylabel("Magnetometer Reading")
+%plot(t,magY);
+%plot(t,magZ);
+%plot(t,motorA);
 
 for i = 1:length(locations)
-   if locations(i)>1000 & locations(i)<1460
+   if locations(i)>1000 & locations(i)<1470
     peakseligible(i) = peaks(i);
    end
 end
@@ -238,7 +242,7 @@ threshold = max(peakseligible)-15
 count = 0;
 
 for i = 1:length(locations)
-   if locations(i)>255 & locations(i)<1460
+   if locations(i)>255 & locations(i)<1470
     if peaks(i) > threshold
         peaksn(count+1)=peaks(i);
         locationsn(count+1)=locations(i);
@@ -269,25 +273,11 @@ ylabel('Angular Veolocity (rads/sec)')
 title('Angular Velocity (rads/sec) vs PWM')
 hold off
 
+figure(11)
+rtherm = [16480,20040,24620,30330,37400,46770,59730];
+rtemps = [50.1,45.2,40.1,35.1, 30.3, 25.4, 19.9];
 
 end
-
-% figure(5)
-% hold on
-% plot(t, A02+1, "r")
-% plot(t, A01+1, "b")
-% hold off
-% 
-
-% figure(6)
-% hold on
-% plot(t, movmean(Ib,3))
-% plot(t, vb)
-% plot(t, Ib*vb)
-% hold off
-
-
-
 
 %effect of things like kelp getting stuck on motors and increasing current
 %draw

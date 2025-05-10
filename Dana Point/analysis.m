@@ -13,9 +13,9 @@
 % danapointlog('010')
 % danapointlog('007')
 % danapointlog('013')
-% danapointlog('005')
+ danapointlog('005')
 
-danapointlog('014')
+%danapointlog('014')
 
 %danapointlog('017')
 %danapointlog('281')
